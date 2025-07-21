@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>¡Bienvenido a Vue!</h1>
+        <p> {{ message }} </p>
+        <p> Has hecho  {{ count }} clics en el gato</p>
+        <!-- :src el valor del atributo src viene dado por el valor de la variable 'myFavoriteCat'-->
+         <!-- @click es un directiva para gestionar el evento click, Cada vez que hacemos clic encima de la imagen, ejecutamos la función 'increment' -->
+        <img @click="increment" :src="myFavoriteCat" alt="">
+        
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const { createApp, ref } = Vue
+
+        createApp({
+            setup() {
+                // Creamos una variable reactive de nombre messageç
+                // Variables que queremos exponer en el HTML, también conocidas como VARIABLES DE ESTADO
+                const message = ref('Hello vue! How are you')
+                const myFavoriteCat = ref('https://cdn2.thecatapi.com/images/a38.jpg');
+                const count = ref(0)
+
+                // Creamos la función increment para aumentar el valor de la variable count
+                const increment = () => {
+                    // Para acceder al valor de la variable count, necesitamos acceder a la propiedad .value
+                    count.value++
+                }
+
+                return {
+                    message,
+                    myFavoriteCat,
+                    count,
+                    increment
+                }
+            }
+        }).mount('#app')
+    </script>
+
+</body>
+
+</html>
