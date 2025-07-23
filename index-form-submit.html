@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+</head>
+
+<body>
+    <div class="container" id="app">
+        <h1>Apuntate a nuestra newsletter</h1>
+        <!-- Para aprovechar la validación de los formularios, necesitamos escuchar el evento 'submit'. El modificadir 'prevent' de la directiva v-on, previene que se "recargue" la página (no hace una petición GET al endpoint en que se encuentra)-->
+        <form @submit.prevent="onSubmit" action="">
+            <label for="email">Pon tu email</label>
+            <input v-model="email" type="email" name="" id="" required>
+            <input type="submit" value="Registrar">
+        </form>
+    </div>
+    <script type="module">
+        import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+        createApp({
+            setup() {
+
+                const email = ref('')
+
+                const onSubmit = () => {
+                    console.log(`El email ${email.value} se ha registrado`)
+                }
+
+                return {
+                    onSubmit,
+                    email
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

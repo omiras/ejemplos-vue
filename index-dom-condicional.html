@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body>
+    <div id="app">
+        <button @click="toggle">Toggle</button>
+        <h1 v-if="awesome">Vue is awesome!</h1>
+        <h1 v-else>Oh no 😢</h1>
+        <div>
+            <h2 @click="info = true">Para más info pulsa aquí</h2>
+            <p style="color: green" v-show="info">
+                ESTA ES LA INFO ADICIONAL
+            </p>
+        </div>
+    </div>
+    <script type="module">
+        import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+        createApp({
+            setup() {
+                const awesome = ref(true)
+                const info = ref(false)
+
+                function toggle() {
+                    // ...
+                    awesome.value = !awesome.value
+                }
+
+                return {
+                    awesome,
+                    toggle,
+                    info
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>
