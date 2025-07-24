@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<style>
+  .bateria {
+    width: 200px;
+    height: 40px;
+    border: 2px solid black;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+</style>
+
+<div id="app">
+  <h2>Batería</h2>
+  <!-- Vamos a hacer que el color de fondo de esta batería sea verde, si está por encima del 50% de carga , o naranja si está por debajo -->
+  <!-- no ponemos background-color, necesiamos usar camelCase. ¿Cómo lo haríamos para 3 colores?-->
+   <!-- entre 0 y 20% lo vamos a pintar en rojo -->
+  <div
+    class="bateria"
+    :style="{ backgroundColor: calculateColor() }"
+  >
+    {{ battery }}%
+  </div>
+
+  <br />
+  <button @click="battery = Math.max(0, battery - 10)">Descargar</button>
+  <button @click="battery = Math.min(100, battery + 10)">Cargar</button>
+</div>
+
+<script type="module">
+  import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+
+  createApp({
+    setup() {
+      const battery = ref(70);
+
+      const calculateColor = () => {
+        if (battery.value < 20) {
+            return 'red'
+        }
+        if (battery.value < 50) {
+            return 'orange'
+        }
+
+        return 'green'
+      }
+
+      return { battery, calculateColor };
+    }
+  }).mount('#app');
+  
+</script>
+</body>
+</html>

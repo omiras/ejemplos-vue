@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- index.html -->
+<style>
+  .completo {
+    color: blue;
+    font-weight: bold;
+  }
+</style>
+
+<div id="app">
+  <h2>Progreso de la tarea</h2>
+  <!-- Cuando se cumpla la condición, se aplicará la clase CSS "completo"-->
+  <p :class="progress === 100 ? 'completo' : ''">
+    Progreso: {{ progress }}%
+  </p>
+  <button @click="progress = Math.min(100, progress + 25)">Avanzar</button>
+  <button @click="progress = 0">Reiniciar</button>
+</div>
+
+<script type="module">
+  import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+
+  createApp({
+    setup() {
+      const progress = ref(0);
+      return { progress };
+    }
+  }).mount('#app');
+</script>
+
+</body>
+</html>

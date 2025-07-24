@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de productos</title>
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1/css/pico.min.css">
+</head>
+
+<body>
+    <div id="app" class="container">
+        <h1>Lista de productos</h1>
+
+        <section>
+            <!-- TODO:  Crear tantos articles como elementos hay en el array 'products'-->
+            <article v-for="p in products" :key="p.id"> 
+                <header>{{ p.name }}</header>
+                {{p.description}}
+                <footer>{{ p.price}} €</footer>
+            </article>
+        </section>
+    </div>
+
+    <script type="module">
+        import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+        createApp({
+            setup() {
+                const products = ref([
+                    { id: 1, name: 'Café', description: 'Café recién molido de Colombia.', price: 1.5, onOffer: false },
+                    { id: 2, name: 'Té verde', description: 'Té ecológico con aroma natural.', price: 1.2, onOffer: true },
+                    { id: 3, name: 'Zumo de naranja', description: 'Zumo natural sin azúcares añadidos.', price: 2.0, onOffer: false }
+                ])
+                return { products }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

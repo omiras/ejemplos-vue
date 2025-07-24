@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<style>
+  .picante-suave {
+    background-color: #d1fae5; /* verde menta */
+    color: #065f46;
+  }
+
+  .picante-medio {
+    background-color: #fef08a; /* amarillo suave */
+    color: #92400e;
+  }
+
+  .picante-alto {
+    background-color: #fdba74; /* naranja suave */
+    color: #7c2d12;
+  }
+
+  .picante-extremo {
+    background-color: #f87171; /* rojo suave */
+    color: #7f1d1d;
+  }
+
+  .picante-mequema {
+    background-color: #b91c1c; /* rojo intenso */
+    color: #fff;
+    font-size: 1.5em;
+    font-style: italic;
+    animation: wobble 0.3s infinite alternate;
+  }
+
+  @keyframes wobble {
+    0% { transform: rotate(-2deg); }
+    100% { transform: rotate(2deg); }
+  }
+
+  .caja-picante {
+    width: 300px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+    transition: all 0.3s;
+  }
+</style>
+
+<div id="app">
+  <h2>¿Cuánto picante quieres?</h2>
+  <select v-model="nivel">
+    <option value="picante-suave">🌱 Suave</option>
+    <option value="picante-medio">🌶️ Medio</option>
+    <option value="picante-alto">🌶️🌶️ Alto</option>
+    <option value="picante-extremo">🌶️🌶️🌶️ Extremo</option>
+    <option value="picante-mequema">🔥 ¡Me quema!</option>
+  </select>
+
+  <div class="caja-picante" :class="nivel">
+    Nivel: {{ nivel.replace('picante-', '').toUpperCase() }}
+  </div>
+</div>
+
+<script type="module">
+  import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+
+  createApp({
+    setup() {
+      const nivel = ref('picante-suave');
+      return { nivel };
+    }
+  }).mount('#app');
+</script>
+</body>
+</html>
