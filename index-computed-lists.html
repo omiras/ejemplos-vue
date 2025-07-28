@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <style>
+        .done {
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="app">
+        <form @submit.prevent="addTodo">
+            <input v-model="newTodo" required placeholder="new todo">
+            <button>Add Todo</button>
+        </form>
+        <ul>
+            <li v-for="todo in filteredTodos" :key="todo.id">
+                <input type="checkbox" v-model="todo.done">
+                <span :class="{ done: todo.done }">{{ todo.text }}</span>
+                <button style="margin-left: 1rem;" @click="removeTodo(todo)">X</button>
+            </li>
+        </ul>
+        <button @click="hideCompleted = !hideCompleted">
+            {{ hideCompleted ? 'Show all' : 'Hide completed' }}
+        </button>
+    </div>
+    <script type="module">
+        import { createApp, ref, computed } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+
+        createApp({
+            setup() {
+                let id = 0
+
+                const newTodo = ref('')
+                const hideCompleted = ref(false)
+                const todos = ref([
+                    { id: id++, text: 'Learn HTML', done: true },
+                    { id: id++, text: 'Learn JavaScript', done: true },
+                    { id: id++, text: 'Learn Vue', done: false }
+                ])
+
+                const filteredTodos = computed(() => {
+                    // lo primero, lo devuevles todo
+
+                    // Quiero devolver solo las tareas que faltan por completar
+                    if (hideCompleted.value) {
+                        return todos.value.filter(t => !t.done)
+                    }
+
+                    return todos.value
+                })
+
+                function addTodo() {
+                    todos.value.push({ id: id++, text: newTodo.value, done: false })
+                    newTodo.value = ''
+                }
+
+                function removeTodo(todo) {
+                    todos.value = todos.value.filter((t) => t !== todo)
+                }
+
+                return {
+                    newTodo,
+                    hideCompleted,
+                    todos,
+                    filteredTodos,
+                    addTodo,
+                    removeTodo
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>
