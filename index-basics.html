@@ -12,6 +12,7 @@
         <h1>¡Bienvenido a Vue!</h1>
         <p> {{ message }} </p>
         <p> Has hecho  {{ count }} clics en el gato</p>
+        <p> El número de clicks es un número {{ pairOdd }}</p>
         <!-- :src el valor del atributo src viene dado por el valor de la variable 'myFavoriteCat'-->
          <!-- @click es un directiva para gestionar el evento click, Cada vez que hacemos clic encima de la imagen, ejecutamos la función 'increment' -->
         <img @click="increment" :src="myFavoriteCat" alt="">
@@ -19,7 +20,7 @@
     </div>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
-        const { createApp, ref } = Vue
+        const { createApp, ref, computed } = Vue
 
         createApp({
             setup() {
@@ -35,11 +36,16 @@
                     count.value++
                 }
 
+                const pairOdd = computed(()=> {
+                    return count.value%2==0? 'par': 'impar'
+                })
+
                 return {
                     message,
                     myFavoriteCat,
                     count,
-                    increment
+                    increment,
+                    pairOdd
                 }
             }
         }).mount('#app')

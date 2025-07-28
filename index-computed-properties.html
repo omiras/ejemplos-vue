@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</p>
+
+</head>
+
+<body>
+    <main id="app">
+        <h1> Published Boks</h1>
+        <p v-if="hasAuthorPublishedAnyBook"> The author has published {{ author.books.length}} books </p>
+        <p v-else>The author has not published any book yet</p>
+        <p> {{ author.name}} has published any book ? <span>{{ hasAuthorPublishedAnyBook ? 'Yes' : 'No' }}</span>
+        
+    </main><script type="module">
+        import { createApp, reactive, computed } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+
+        createApp({
+            setup() {
+                const author = reactive({
+                    name: 'John Doe',
+                    books: [
+                    ]
+                })
+
+                // estado derivado
+                const hasAuthorPublishedAnyBook = computed(() => {
+                    return author.books.length>0
+                })
+
+                return { author, hasAuthorPublishedAnyBook };
+            }
+        }).mount('#app');
+
+    </script>
+</body>
+
+</html>
