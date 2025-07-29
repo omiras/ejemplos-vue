@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+>
+</head>
+
+<body>
+    <main class="container" id="app">
+        <h1>Lista de apartamentos de BravaBook</h1>
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Imagen</th>
+                <th>Precio</th>
+            </tr>
+            <!-- Vamos a generar tantas filas como apartamentos en lo que nos devuelve la API -->
+             <tr v-for="apt in apartments" :key="apt._id">
+                <td> {{ apt.title }}</td>
+                <td> <img width="200" :src="apt.mainPhoto" alt=""></td>
+                <td> {{apt.price}} €</td>
+             </tr>
+        </table>
+        <button @click="handleButton">Obtener Apartamentos</button>
+    </main>
+       <script type="module">
+        import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+        createApp({
+            setup() {
+
+                // 1. Una variable de estado que contenga la información que obtenemos de la API
+                // Como vamos a recuerar un array de apartamentos, la inicializo como un array vacío
+                const apartments = ref([])
+
+                // 2. Gestionar el evento @click
+                const handleButton = async () => {
+                    // Hacer una petición a la API de apartmentos de BravaBook (puede tardar un poco, porque usamos Render.com gratuito)
+                    const response = await fetch('https://bravabook.onrender.com/api/apartments/')
+                    // Procesar el JSON
+                    const data = await response.json()
+                    // Actualizar variable de estado
+                    apartments.value = data
+                } 
+
+            
+                return {
+                    handleButton,
+                    apartments
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+>
+</head>
+
+<body>
+    <main class="container" id="app">
+        <h1>"Chistes" sobre chuck norris</h1>
+        <p> {{ joke }} </p>
+        <button @click="handleButton">Obtener "Chiste"</button>
+    </main>
+       <script type="module">
+        import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+        createApp({
+            setup() {
+
+                // 1. Una variable de estado que contenga la información que obtenemos de la API
+                const joke = ref('')
+
+                // 2. Gestionar el evento @click
+                const handleButton = async () => {
+                    // Hacer una petición a la API de Chuck Norris
+                    const response = await fetch('https://api.chucknorris.io/jokes/random')
+                    // Procesar el JSON
+                    const data = await response.json()
+                    // Actualizar el valor de la variable de estado con el valor del "chiste"
+                    joke.value = data.value
+                } 
+
+            
+                return {
+                    handleButton,
+                    joke
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
